@@ -1,5 +1,10 @@
 import { HttpException, HttpStatus, Injectable, Scope } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import {
+  IPaginationOptions,
+  Pagination,
+  paginate,
+} from 'nestjs-typeorm-paginate';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song.dto';
@@ -14,6 +19,12 @@ export class SongsService {
     private songsRepository: Repository<Song>,
   ) {}
   private readonly songs = [];
+
+  async pagination(options: IPaginationOptions): Promise<Pagination<Song>> {
+    // Adding query builder
+    // If you need to add query builder you can add it here
+    return await paginate<Song>(this.songsRepository, options);
+  }
 
   create(songDTO: CreateSongDTO): Promise<Song> {
     const song = new Song();
