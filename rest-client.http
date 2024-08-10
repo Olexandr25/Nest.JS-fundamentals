@@ -15,12 +15,21 @@ POST http://localhost:3000/songs
 Content-Type: application/json
 
 {
-  "title": "You for Me #4",
+  "title": "You for Me - 3.1",
   "artists": ["Siagla", "Yan", "Ny"],
+  "artists": [1, 2],
   "releaseDate": "2024-09-30",
   "duration": "02:45",
   "lyrics": "Sby, - who looks like ya"
 }
+
+# {
+#   "title": "You for Me #4",
+#   "artists": ["Siagla", "Yan", "Ny"],
+#   "releaseDate": "2024-09-30",
+#   "duration": "02:45",
+#   "lyrics": "Sby, - who looks like ya"
+# }
 
 # {
 #   "releaseDate": "2019-01-01",
@@ -47,5 +56,5 @@ Content-Type: application/json
 
 
 ### Delete
-DELETE http://localhost:3000/songs/9
+DELETE http://localhost:3000/songs/29
 

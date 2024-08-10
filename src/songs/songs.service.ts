@@ -5,6 +5,7 @@ import {
   Pagination,
   paginate,
 } from 'nestjs-typeorm-paginate';
+import { Artist } from 'src/artists/artist.entity';
 import { Repository, UpdateResult } from 'typeorm';
 import { CreateSongDTO } from './dto/create-song-dto';
 import { UpdateSongDto } from './dto/update-song.dto';
@@ -17,6 +18,8 @@ export class SongsService {
   constructor(
     @InjectRepository(Song)
     private songsRepository: Repository<Song>,
+    @InjectRepository(Artist)
+    private artistsRepository: Repository<Artist>,
   ) {}
   private readonly songs = [];
 
@@ -29,16 +32,25 @@ export class SongsService {
     return await paginate<Song>(queryBuilder, options);
   }
 
-  create(songDTO: CreateSongDTO): Promise<Song> {
+  async create(songDTO: CreateSongDTO): Promise<Song> {
     const song = new Song();
-    console.log('songDTO', songDTO);
+
     song.title = songDTO.title;
     song.artists = songDTO.artists;
     song.duration = songDTO.duration;
     song.lyrics = songDTO.lyrics;
     song.releaseDate = songDTO.releaseDate;
 
-    return this.songsRepository.save(song);
+    console.log(songDTO.artists);
+
+    // * #1
+    // find all the artists on the based on ids
+    const artists = await this.artistsRepository.findByIds(songDTO.artists);
+    // * #2
+    // set the relation with artist and songs
+    song.artists = artists;
+
+    return await this.songsRepository.save(song);
   }
 
   findAll(): Promise<Song[]> {
