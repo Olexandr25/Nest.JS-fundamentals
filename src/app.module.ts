@@ -1,13 +1,15 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { SongsModule } from './songs/songs.module';
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { SongsController } from './songs/songs.controller';
-import { DevConfigService } from './common/providers/DevConfigService';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { Artist } from './artists/artist.entity';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { DevConfigService } from './common/providers/DevConfigService';
 import { Song } from './songs/song.entity';
+import { SongsController } from './songs/songs.controller';
+import { SongsModule } from './songs/songs.module';
+import { User } from './users/user.entity';
 
 const devConfig = { port: 3000, dbHost: 'dev' };
 const prodConfig = { port: 8080, dbHost: 'prod-db-host' };
@@ -22,7 +24,7 @@ const prodConfig = { port: 8080, dbHost: 'prod-db-host' };
       port: 5432,
       username: 'postgres',
       password: '2511',
-      entities: [Song],
+      entities: [Song, Artist, User],
       synchronize: true,
     }),
   ],
