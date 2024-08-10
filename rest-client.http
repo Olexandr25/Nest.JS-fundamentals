@@ -4,6 +4,9 @@ GET http://localhost:3000
 ### Songs
 GET http://localhost:3000/songs
 
+### Songs, Query page and limit
+GET http://localhost:3000/songs/?page=1&limit=2
+
 ### Song
 GET http://localhost:3000/songs/1
 
@@ -14,7 +17,7 @@ Content-Type: application/json
 {
   "title": "You for Me #4",
   "artists": ["Siagla", "Yan", "Ny"],
-  "releaseDate": "2022-09-30",
+  "releaseDate": "2024-09-30",
   "duration": "02:45",
   "lyrics": "Sby, - who looks like ya"
 }
