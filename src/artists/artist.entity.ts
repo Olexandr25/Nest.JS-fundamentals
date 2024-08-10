@@ -1,4 +1,11 @@
-import { Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Song } from 'src/songs/song.entity';
+import {
+  Entity,
+  JoinColumn,
+  ManyToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { User } from '../users/user.entity';
 
 @Entity('artists')
@@ -9,4 +16,7 @@ export class Artist {
   @OneToOne(() => User)
   @JoinColumn()
   user: User;
+
+  @ManyToMany(() => Song, (song) => song.artists)
+  songs: Song[];
 }
